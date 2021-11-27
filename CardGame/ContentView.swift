@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import Parse
+
 
 struct ContentView: View {
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Text("Signed in")
+        
     }
+        
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -19,3 +23,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
+
+
