@@ -10,16 +10,14 @@
 import SwiftUI
 
 struct CardGameView: View {
-    @State private var randCPUNum1 = 2
-    @State private var randCPUNum2 = 2
-    @State private var randPlayerNum1 = 2
-    @State private var randPlayerNum2 = 2
+    @State private var randCPUNum1 = 0
+    @State private var randCPUNum2 = 0
+    @State private var randPlayerNum1 = 0
+    @State private var randPlayerNum2 = 0
     @State var offsetX = 30 // x coordinate offest of each card
-    @State var blackjack = 21 // Win Condition
+    @State var deck = Deck()
 
-    
     var body: some View {
-        
         ZStack {
             Color.blue
                 .ignoresSafeArea()
@@ -28,11 +26,11 @@ struct CardGameView: View {
                 Text("0")
                 HStack { // CPU cards
                     ZStack {
-                        Image("back")
+                        Image(deck.deck[randCPUNum1])
                             .resizable()
                             .scaledToFit()
                             .frame(width: 120, height: 180)
-                        Image("card" + String(randCPUNum2))
+                        Image(deck.deck[randCPUNum2])
                             .resizable()
                             .frame(width: 120, height: 180)
                             .offset(x: CGFloat(offsetX))
@@ -52,10 +50,7 @@ struct CardGameView: View {
                     Spacer()
                     Button("Deal", action: {
                         // Randomizes CPU and Player Card
-                        self.randCPUNum1 = Int.random(in: 2...14)
-                        self.randCPUNum2 = Int.random(in: 2...14)
-                        self.randPlayerNum1 = Int.random(in: 2...14)
-                        self.randPlayerNum2 = Int.random(in: 2...14)
+                        deal()
                     })
                     Spacer()
                     Button("Stop", action : { //
@@ -69,10 +64,10 @@ struct CardGameView: View {
                 
                 HStack { // Player cards
                     ZStack {
-                        Image("card" + String(randPlayerNum1))
+                        Image(deck.deck[randPlayerNum1])
                             .resizable()
                             .frame(width: 120, height: 180)
-                        Image("card" + String(randPlayerNum2))
+                        Image(deck.deck[randPlayerNum2])
                             .resizable()
                             .frame(width: 120, height: 180)
                             .offset(x: CGFloat(offsetX))
@@ -97,6 +92,36 @@ struct CardGameView: View {
         }
         
     }
+}
+
+
+extension CardGameView {
+    func deal() {
+        //self.randCPUNum1 = Int.random(in: 1...52)
+        self.randCPUNum2 = Int.random(in: 1...52)
+        self.randPlayerNum1 = Int.random(in: 1...52)
+        self.randPlayerNum2 = Int.random(in: 1...52)
+    }
+    
+}
+
+
+struct Deck {
+    var deck = ["back",
+                "1C", "1D", "1H", "1S",
+                "2C", "2D", "2H", "2S",
+                "3C", "3D", "3H", "3S",
+                "4C", "4D", "4H", "4S",
+                "5C", "5D", "5H", "5S",
+                "6C", "6D", "6H", "6S",
+                "7C", "7D", "7H", "7S",
+                "8C", "8D", "8H", "8S",
+                "9C", "9D", "9H", "9S",
+                "10C", "10D", "10H", "10S",
+                "11C", "11D", "11H", "11S",
+                "12C", "12D", "12H", "12S",
+                "13C", "13D", "13H", "13S",]
+
 }
 
 struct CardGameView_Previews: PreviewProvider {

@@ -34,6 +34,3 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 
-// Card Images from https://code.google.com/archive/p/vector-playing-cards/
-
-    
