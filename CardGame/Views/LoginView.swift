@@ -22,7 +22,8 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Image("AppIcon")
+                Image("Logo")
+                    .frame(width: 60, height: 60 )
                 Text("CardGame")
                     .font(.system(size: 64, weight: .semibold))
                     .foregroundColor(.blue)
