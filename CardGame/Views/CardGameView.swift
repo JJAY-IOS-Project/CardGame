@@ -21,6 +21,7 @@ struct CardGameView: View {
     @State var offsetX = 30 // x coordinate offest of each card
     @State var deck = Deck()
     @State var index = 0...1
+    @State var playerScore = 0
     @State var index2 = 2
 
     var body: some View {
@@ -56,7 +57,7 @@ struct CardGameView: View {
                 Spacer()
                 HStack {
                     Button("Fold", action : {
-                        
+                        fold()
                     })
                         .padding(.leading, 20)
                     Spacer()
@@ -66,7 +67,7 @@ struct CardGameView: View {
                     })
                     Spacer()
                     Button("War", action : { //
-                        
+                        playerScore += 1
                     })
                         .padding(.trailing, 20)
                 }
@@ -97,7 +98,7 @@ struct CardGameView: View {
                 HStack { // Player score and hand
                     VStack {
                         Text("Player Score")
-                        Text("0")
+                        Text("\(playerScore)")
                     }
                     .padding(.leading, 20)
                     Spacer()
@@ -117,6 +118,7 @@ struct CardGameView: View {
 
 extension CardGameView {
     func play() {
+        playerScore = 0
         playerHandScore = 0
         cpuHandScore = 0
         //self.randCPUNum1 = Int.random(in: 1...52)
@@ -131,12 +133,24 @@ extension CardGameView {
                 cpuHandScore += y/4 + 1
             }
         }
-        
     }
-    
+
     
     func fold() {
-        
+        playerHandScore = 0
+        cpuHandScore = 0
+        //self.randCPUNum1 = Int.random(in: 1...52)
+        self.randCPUNum2 = Int.random(in: 0...51)
+        for i in index {
+            let x = Int.random(in: 0...51)
+            let y = Int.random(in: 0...51)
+            randPlayerNum[i] = x
+            randCPUNum[i] = y
+            playerHandScore += x/4 + 1 // Calc hand score
+            if i > 0 {
+                cpuHandScore += y/4 + 1
+            }
+        }
     }
 }
 
