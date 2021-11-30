@@ -10,11 +10,8 @@
 import SwiftUI
 
 struct CardGameView: View {
-    @State private var randCPUNum1 = 52
     @State private var randCPUNum = [52,52]
     @State private var randPlayerNum = [52,52]
-    @State private var randCPUNum2 = 52
-    
     @State private var randNum = 1
     @State private var playerHandScore = 0
     @State private var cpuHandScore = 0
@@ -26,8 +23,14 @@ struct CardGameView: View {
 
     var body: some View {
         ZStack {
-            Color.blue
-                .ignoresSafeArea()
+            GeometryReader { geo in
+                Image("background")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: geo.size.width, maxHeight: geo.size.height)
+            }
+            
+                
             VStack {
                 Text("CPU Hand")
                 Text("\(cpuHandScore)")
@@ -53,8 +56,10 @@ struct CardGameView: View {
                 
                 // Logo and Deal button
                 Spacer()
+                    .frame(height: 20)
                 Image("Logo")
                 Spacer()
+                    .frame(height: 20)
                 HStack {
                     Button("Fold", action : {
                         fold()
@@ -74,6 +79,7 @@ struct CardGameView: View {
                 .foregroundColor(.black)
                 
                 Spacer()
+                    .frame(height: 20)
                 
                 HStack { // Player cards
                     ZStack {
@@ -83,14 +89,6 @@ struct CardGameView: View {
                                 .frame(width: 120, height: 180)
                                 .offset(x: CGFloat(offsetX*i))
                         }
-                        
-//                        Image(deck.deck[randPlayerNum1])
-//                            .resizable()
-//                            .frame(width: 120, height: 180)
-//                        Image(deck.deck[randPlayerNum2])
-//                            .resizable()
-//                            .frame(width: 120, height: 180)
-//                            .offset(x: CGFloat(offsetX))
                     }
                     
                 }
@@ -109,10 +107,12 @@ struct CardGameView: View {
                     }
                     .padding(.trailing, 20)
                 }
+                .padding(.bottom, 90)
             }
         }
         
     }
+    
 }
 
 
@@ -121,8 +121,6 @@ extension CardGameView {
         playerScore = 0
         playerHandScore = 0
         cpuHandScore = 0
-        //self.randCPUNum1 = Int.random(in: 1...52)
-        self.randCPUNum2 = Int.random(in: 0...51)
         for i in index {
             let x = Int.random(in: 0...51)
             let y = Int.random(in: 0...51)
@@ -139,8 +137,6 @@ extension CardGameView {
     func fold() {
         playerHandScore = 0
         cpuHandScore = 0
-        //self.randCPUNum1 = Int.random(in: 1...52)
-        self.randCPUNum2 = Int.random(in: 0...51)
         for i in index {
             let x = Int.random(in: 0...51)
             let y = Int.random(in: 0...51)

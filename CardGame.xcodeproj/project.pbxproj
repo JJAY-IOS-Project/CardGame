@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		7066B1E3A3D536BDFC94C531 /* Pods_CardGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AFE6B139AFC3A6AAA17E7E /* Pods_CardGame.framework */; };
 		A44BA041274E948B00968557 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44BA040274E948B00968557 /* LoginView.swift */; };
-		A44BA043274EAF5900968557 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44BA042274EAF5900968557 /* GameView.swift */; };
+		A44BA043274EAF5900968557 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44BA042274EAF5900968557 /* TabView.swift */; };
 		A44BA046274EB2A900968557 /* CardGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44BA045274EB2A900968557 /* CardGameView.swift */; };
 		A44BA048274EB2C900968557 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44BA047274EB2C800968557 /* ScoreView.swift */; };
 		A4519F9527544FE50082AB6A /* CardScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4519F9427544FE50082AB6A /* CardScore.swift */; };
@@ -23,7 +23,7 @@
 		233E3E42C6D1B1651EDD1932 /* Pods-CardGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGame.debug.xcconfig"; path = "Target Support Files/Pods-CardGame/Pods-CardGame.debug.xcconfig"; sourceTree = "<group>"; };
 		84AFE6B139AFC3A6AAA17E7E /* Pods_CardGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A44BA040274E948B00968557 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		A44BA042274EAF5900968557 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		A44BA042274EAF5900968557 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		A44BA045274EB2A900968557 /* CardGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameView.swift; sourceTree = "<group>"; };
 		A44BA047274EB2C800968557 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		A4519F9427544FE50082AB6A /* CardScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScore.swift; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				A44BA040274E948B00968557 /* LoginView.swift */,
-				A44BA042274EAF5900968557 /* GameView.swift */,
+				A44BA042274EAF5900968557 /* TabView.swift */,
 				A44BA045274EB2A900968557 /* CardGameView.swift */,
 				A44BA047274EB2C800968557 /* ScoreView.swift */,
 			);
@@ -232,7 +232,7 @@
 				A4519F9527544FE50082AB6A /* CardScore.swift in Sources */,
 				A44BA041274E948B00968557 /* LoginView.swift in Sources */,
 				A465166E274DAE56007FB502 /* ContentView.swift in Sources */,
-				A44BA043274EAF5900968557 /* GameView.swift in Sources */,
+				A44BA043274EAF5900968557 /* TabView.swift in Sources */,
 				A465166C274DAE56007FB502 /* CardGameApp.swift in Sources */,
 				A44BA048274EB2C900968557 /* ScoreView.swift in Sources */,
 			);

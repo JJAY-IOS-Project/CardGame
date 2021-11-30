@@ -22,6 +22,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
+
                 Image("Logo")
                     .frame(width: 60, height: 60 )
                 Text("CardGame")
@@ -45,7 +46,7 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .padding(.bottom, 20)
                     .padding(.horizontal, 20)
-                NavigationLink("", destination: GameView(), isActive: $isShowNext)
+                NavigationLink("", destination: TabView(), isActive: $isShowNext)
                 Button(action: {
                     let user = PFUser()
                     user.username = username
@@ -71,6 +72,7 @@ struct LoginView: View {
                     PFUser.logInWithUsername(inBackground: username, password: password) { (user, error) in
                         if user != nil {
                             self.isShowNext.toggle()
+                            
                         } else {
                             print("Error: \(error?.localizedDescription)")
                         }
@@ -94,6 +96,13 @@ struct LoginView_Previews: PreviewProvider {
         LoginView()
     }
 }
+
+//extension LoginView {
+//    func goToHome() -> AnyView {
+//        return GameView()
+//    }
+//}
+
 
 //mutation logInUser($username: String!, $password: String!) {
   //  logIn(username: $username, password: $password) {

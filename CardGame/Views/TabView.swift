@@ -7,24 +7,28 @@
 
 import SwiftUI
 
-struct GameView: View {
+struct TabView: View {
+    init() {
+        UITabBar.appearance().barTintColor = .gray
+    }
     var body: some View {
         TabView {
             CardGameView()
                 .tabItem {
-                    Text("Play game")
+                    Label("Play", systemImage: "play.fill")
                 }
             ScoreView()
                 .tabItem {
-                    Text("Scores")
+                    Label("Scores", systemImage: "list.number")
                 }
         }
     }
 }
 
-struct GameView_Previews: PreviewProvider {
+
+struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        TabView()
     }
 }
 
