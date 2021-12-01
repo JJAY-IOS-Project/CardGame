@@ -15,6 +15,8 @@ struct CardGameView: View {
     @State private var randNum = 1
     @State private var playerHandScore = 0
     @State private var cpuHandScore = 0
+    @State private var foldCount = 3
+    @State private var foldAlert = false
     @State var offsetX = 30 // x coordinate offest of each card
     @State var deck = Deck()
     @State var index = 0...1
@@ -61,10 +63,15 @@ struct CardGameView: View {
                 Spacer()
                     .frame(height: 20)
                 HStack {
-                    Button("Fold", action : {
+                    Button("Fold")  {
+                        foldAlert = true
                         fold()
-                    })
+                    }
                         .padding(.leading, 20)
+                        .alert(isPresented: $foldAlert) {
+                            Alert(title: Text("Folds left:  \(foldCount)"))
+                        }
+
                     Spacer()
                     Button("Play", action: {
                         // Randomizes CPU and Player Card
@@ -135,18 +142,26 @@ extension CardGameView {
 
     
     func fold() {
-        playerHandScore = 0
-        cpuHandScore = 0
-        for i in index {
-            let x = Int.random(in: 0...51)
-            let y = Int.random(in: 0...51)
-            randPlayerNum[i] = x
-            randCPUNum[i] = y
-            playerHandScore += x/4 + 1 // Calc hand score
-            if i > 0 {
-                cpuHandScore += y/4 + 1
+        if foldCount != 0 {
+            foldCount -= 1
+            playerHandScore = 0
+            cpuHandScore = 0
+            for i in index {
+                let x = Int.random(in: 0...51)
+                let y = Int.random(in: 0...51)
+                randPlayerNum[i] = x
+                randCPUNum[i] = y
+                playerHandScore += x/4 + 1 // Calc hand score
+                if i > 0 {
+                    cpuHandScore += y/4 + 1
+                }
             }
         }
+        
+    }
+    
+    func war() {
+        
     }
 }
 
@@ -171,6 +186,6 @@ struct Deck {
 
 struct CardGameView_Previews: PreviewProvider {
     static var previews: some View {
-        CardGameView()
+        TabBarView()
     }
 }

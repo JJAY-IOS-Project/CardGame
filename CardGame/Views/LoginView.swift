@@ -46,7 +46,7 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .padding(.bottom, 20)
                     .padding(.horizontal, 20)
-                NavigationLink("", destination: TabView(), isActive: $isShowNext)
+                NavigationLink("", destination: TabBarView(), isActive: $isShowNext)
                 Button(action: {
                     let user = PFUser()
                     user.username = username

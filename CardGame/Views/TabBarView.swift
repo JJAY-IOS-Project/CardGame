@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabView: View {
+struct TabBarView: View {
     init() {
         UITabBar.appearance().barTintColor = .gray
     }
@@ -26,9 +26,9 @@ struct TabView: View {
 }
 
 
-struct TabView_Previews: PreviewProvider {
+struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TabView()
+        TabBarView()
     }
 }
 
