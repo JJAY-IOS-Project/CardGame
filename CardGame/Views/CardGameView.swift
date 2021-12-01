@@ -16,7 +16,12 @@ struct CardGameView: View {
     @State private var playerHandScore = 0
     @State private var cpuHandScore = 0
     @State private var foldCount = 3
-    @State private var foldAlert = false
+    @State private var showAlert = false
+    @State private var showAlert2 = false
+    @State private var firstCPUCard = 52
+    @State private var isPlaying = false
+    @State private var winHandStatus = ["won. Wait 2.5s for next pair." , "lost. Press Play to play again" ,"tied. Wait 2.5s for next pair."]
+    @State private var winString = -1
     @State var offsetX = 30 // x coordinate offest of each card
     @State var deck = Deck()
     @State var index = 0...1
@@ -40,7 +45,7 @@ struct CardGameView: View {
                     ZStack {
                         ForEach(0..<index2) { i in
                             if i == 0 {
-                                Image(deck.deck[52])
+                                Image(deck.deck[firstCPUCard])
                                     .resizable()
                                     .frame(width: 120, height: 180)
                                     .offset(x: CGFloat(offsetX*i))
@@ -64,11 +69,11 @@ struct CardGameView: View {
                     .frame(height: 20)
                 HStack {
                     Button("Fold")  {
-                        foldAlert = true
+                        showAlert = true
                         fold()
                     }
                         .padding(.leading, 20)
-                        .alert(isPresented: $foldAlert) {
+                        .alert(isPresented: $showAlert) {
                             Alert(title: Text("Folds left:  \(foldCount)"))
                         }
 
@@ -78,10 +83,14 @@ struct CardGameView: View {
                         play()
                     })
                     Spacer()
-                    Button("War", action : { //
-                        playerScore += 1
-                    })
+                    Button("War") {
+                        war()
+                        showAlert2 = true
+                    }
                         .padding(.trailing, 20)
+                        .alert(isPresented: $showAlert2) {
+                            Alert(title: Text("You \(winHandStatus[winString])"))
+                        }
                 }
                 .foregroundColor(.black)
                 
@@ -114,7 +123,7 @@ struct CardGameView: View {
                     }
                     .padding(.trailing, 20)
                 }
-                .padding(.bottom, 90)
+                //.padding(.bottom, 90)
             }
         }
         
@@ -124,23 +133,6 @@ struct CardGameView: View {
 
 
 extension CardGameView {
-    func play() {
-        playerScore = 0
-        playerHandScore = 0
-        cpuHandScore = 0
-        for i in index {
-            let x = Int.random(in: 0...51)
-            let y = Int.random(in: 0...51)
-            randPlayerNum[i] = x
-            randCPUNum[i] = y
-            playerHandScore += x/4 + 1 // Calc hand score
-            if i > 0 {
-                cpuHandScore += y/4 + 1
-            }
-        }
-    }
-
-    
     func fold() {
         if foldCount != 0 {
             foldCount -= 1
@@ -157,16 +149,82 @@ extension CardGameView {
                 }
             }
         }
+    }
+    
+    func play() {
+        isPlaying = true
+        playerScore = 0
+        newHand()
+    }
+
+    func newHand() {
+        foldCount = 3
+        playerHandScore = 0
+        cpuHandScore = 0
+        for i in index {
+            let x = Int.random(in: 0...51)
+            let y = Int.random(in: 0...51)
+            randPlayerNum[i] = x
+            randCPUNum[i] = y
+            playerHandScore += x/4 + 1 // Calc hand score
+            if i > 0 {
+                cpuHandScore += y/4 + 1
+            }
+            if i == 0 {
+                randCPUNum[0] = 52
+            }
+            firstCPUCard = randCPUNum[0]
+        }
+    }
+    
+    
+    func makeCardsBlank() {
+        playerHandScore = 0
+        cpuHandScore = 0
+        for i in index {
+            randPlayerNum[i] = 52
+            randCPUNum[i] = 52
+        }
         
     }
     
     func war() {
+        var countWar = 1
+        if isPlaying == true && countWar != 0{
+            firstCPUCard = Int.random(in: 0...51)
+            randCPUNum[0] = firstCPUCard
+            cpuHandScore += firstCPUCard/4 + 1
+            if (playerHandScore > cpuHandScore) { // win
+                winString = 0
+                playerScore += 1
+                DispatchQueue.main.asyncAfter(deadline:.now() + 2.5) {
+                    newHand()
+                }
+                
+                
+            } else if (playerHandScore < cpuHandScore) { // lose
+                winString = 1
+                isPlaying = false
+                DispatchQueue.main.asyncAfter(deadline:.now() + 2.5) {
+                    makeCardsBlank()
+                    firstCPUCard = 52
+                }
+                
+            } else { // tie
+                winString = 2
+                DispatchQueue.main.asyncAfter(deadline:.now() + 2.5) {
+                    newHand()
+                }
+                
+            }
+            countWar -= 1
+        }
         
     }
 }
 
 
-struct Deck {
+struct Deck { // Holds deck of images
     var deck = ["1C", "1D", "1H", "1S",
                 "2C", "2D", "2H", "2S",
                 "3C", "3D", "3H", "3S",
