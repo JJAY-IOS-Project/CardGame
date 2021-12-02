@@ -8,6 +8,8 @@
 // Only have 13 cards because we don't really need different suits
 
 import SwiftUI
+import UIKit
+import Parse
 
 struct CardGameView: View {
     @State private var randCPUNum = [52,52]
@@ -27,7 +29,9 @@ struct CardGameView: View {
     @State var index = 0...1
     @State var playerScore = 0
     @State var index2 = 2
-
+     
+    
+    
     var body: some View {
         ZStack {
             GeometryReader { geo in
@@ -86,6 +90,22 @@ struct CardGameView: View {
                     Button("War") {
                         war()
                         showAlert2 = true
+                        //let query = PFQuery(className: "HighScore")
+                        if (playerScore > 0 ) {
+                            let highScore = PFObject(className: "HighScore")
+                            highScore["name"] = PFUser.current()?.username
+                            highScore["HighestScore"] = playerScore
+                        
+                            highScore.saveInBackground{ (success, error) in
+                                if success {
+                                    
+                                    print("High Score updated")
+                                } else {
+                                    print("High Score error!")
+                                }
+                            }
+                        }
+                        
                     }
                         .padding(.trailing, 20)
                         .alert(isPresented: $showAlert2) {

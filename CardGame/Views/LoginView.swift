@@ -47,22 +47,13 @@ struct LoginView: View {
                     let user = PFUser()
                     user.username = username
                     user.password = password
-                    let highScore = PFObject(className: "HighScore")
-                    highScore["name"] = PFUser.current()!
-                    highScore["High Score"] = 0
+                    
                     
                     user.signUpInBackground { (success, error) in
                         if success {
                             self.isShowNext.toggle()
                         } else {
                             print("Error: \(error?.localizedDescription)")
-                        }
-                    }
-                    highScore.saveInBackground { (success,error) in
-                        if success {
-                            print("saved")
-                        } else {
-                            print("error")
                         }
                     }
                 }) {
