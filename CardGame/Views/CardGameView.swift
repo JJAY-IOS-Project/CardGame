@@ -29,7 +29,7 @@ struct CardGameView: View {
     @State var index = 0...1
     @State var playerScore = 0
     @State var index2 = 2
-     
+    @State var recentHighestScore = 1000
     
     
     var body: some View {
@@ -90,12 +90,27 @@ struct CardGameView: View {
                     Button("War") {
                         war()
                         showAlert2 = true
-                        //let query = PFQuery(className: "HighScore")
-                        if (playerScore > 0 ) {
-                            let highScore = PFObject(className: "HighScore")
+//                        let query = PFQuery(className: "HighScore")
+                        let highScore = PFObject(className: "HighScore")
+                        
+                        
+//                        query.getObjectInBackground(withId: "HighestScore") {(success,error) in
+//                            if (error == nil) {
+//                                recentHighestScore = highScore["HighestScore"] as! Int
+//                                print("Query success")
+//                            } else {
+//                                print("Query error")
+//                            }
+//                        }
+                        
+                            // error occurs if condition is wrong
+                        // need another condition to check if high score of current user already exists
+
+                        if (playerScore > recentHighestScore ) {
+                            
+                            
                             highScore["name"] = PFUser.current()?.username
                             highScore["HighestScore"] = playerScore
-                        
                             highScore.saveInBackground{ (success, error) in
                                 if success {
                                     
