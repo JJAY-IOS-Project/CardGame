@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ScoreView: View {
-    var scoreToDisplay: [ScoresList]
+    var scoreToDisplay = sortedList
     var body: some View {
         NavigationView {
-            List(scoreToDisplay) {
+            List(sortedList) {
                 group in ListRow(eachScore: group)
             }.navigationBarTitle(Text("High Scores"))
         }
@@ -43,8 +43,12 @@ public var sampleList = [
     ScoresList(id: "Ralph", name: "Ralph", highScore: 50),
 ]
 
+public var sortedList = sampleList.sorted { (lhs:ScoresList, rhs:ScoresList) in
+    return lhs.highScore > rhs.highScore
+}
+
 struct ScoreView_Previews: PreviewProvider {
     static var previews: some View {
-        ScoreView(scoreToDisplay: sampleList)
+        ScoreView(scoreToDisplay: sortedList)
     }
 }
