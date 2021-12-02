@@ -87,8 +87,8 @@ struct CardGameView: View {
                         play()
                     })
                     Spacer()
-                    Button("War") {
-                        war()
+                    Button("Battle") {
+                        battle()
                         showAlert2 = true
 //                        let query = PFQuery(className: "HighScore")
                         let highScore = PFObject(className: "HighScore")
@@ -223,7 +223,7 @@ extension CardGameView {
         
     }
     
-    func war() {
+    func battle() {
         var countWar = 1
         if isPlaying == true && countWar != 0{
             firstCPUCard = Int.random(in: 0...51)

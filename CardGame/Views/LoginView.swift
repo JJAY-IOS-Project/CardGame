@@ -21,7 +21,7 @@ struct LoginView: View {
 
                 Image("Logo")
                     .frame(width: 60, height: 60 )
-                Text("CardGame")
+                Text("Battle")
                     .font(.system(size: 64, weight: .semibold))
                     .foregroundColor(.blue)
                     .padding(.bottom, 20)
