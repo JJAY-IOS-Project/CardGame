@@ -17,7 +17,7 @@ struct TabBarView: View {
                 .tabItem {
                     Label("Play", systemImage: "play.fill")
                 }
-            ScoreView()
+            ScoreView(scoreToDisplay: sampleList)
                 .tabItem {
                     Label("Scores", systemImage: "list.number")
                 }
